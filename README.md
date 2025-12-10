@@ -1,12 +1,27 @@
 # Sistema de Gerenciamento de Venda de Ingressos e Sessões de Cinema
 
-O objetivo do projeto é modelar um banco de dados para o gerenciamento da venda de ingressos e a programação das sessões de um cinema. Suas funcionalidades são:
-● Cadastrar filmes e clientes;
-● Gerenciar sessões e ingressos;
-● Controlar assentos;
-● Registrar as compras;
-O banco de dados não deve permitir que o mesmo assento seja vendido em dois ingressos diferentes para uma mesma sessão ou que duas sessões ocorram na mesma sala e horário.
-As entidades identificadas são filme, sessão, cliente, ingresso, sala, poltrona, compra e pagamento, as quais se relacionam da seguinte maneira:
+## Descrição do Projeto
+Este projeto tem como objetivo modelar e implementar um banco de dados para gerenciamento de venda de ingressos e programação de sessões de cinema. Ele permite o controle completo de filmes, clientes, sessões, assentos, ingressos e compras, garantindo que não ocorram conflitos de reservas ou horários.
+
+---
+
+## Funcionalidades
+O sistema oferece as seguintes funcionalidades:  
+- Cadastro de filmes e clientes  
+- Gerenciamento de sessões e ingressos  
+- Controle de assentos  
+- Registro de compras e pagamentos  
+
+**Regras de negócio importantes:**  
+- Um mesmo assento não pode ser vendido para dois ingressos diferentes na mesma sessão  
+- Duas sessões não podem ocorrer na mesma sala e horário  
+
+---
+
+## Entidades e Relacionamentos
+As principais entidades do sistema são: `Filme`, `Sessão`, `Cliente`, `Ingresso`, `Sala`, `Poltrona`, `Compra` e `Pagamento`.  
+
+Relações entre as entidades:  
 ● Um filme pode ser exibido em várias sessões. Um sessão exibe um filme.
 ● Uma sessão é hospedada em uma sala. Uma sala pode hospedar várias sessões.
 ● Uma sala contém várias poltronas. Uma poltrona é contida em uma sala.
@@ -17,6 +32,20 @@ As entidades identificadas são filme, sessão, cliente, ingresso, sala, poltron
 ● Cada compra pode possuir múltiplos pagamentos. Um pagamento é referente a uma única compra.
 ● Cada ingresso é classificado por um tipo. Um tipo de ingresso classifica vários ingressos.
 
-Modelo Conceitual, o qual identifica as entidades e seus atributos, foi realizado utilizando-se o software BrModelo. 
-O Diagrama de Entidade-Relacionamento, concluído por meio do software Oracle Data Modeler, é responsável por identificar a cardinalidade e opcionalidade dos relacionamentos entre as entidades. 
-Por fim, o Modelo Físico é representado mediante script Data Definition Language, o qual define as estruturas das tabelas e as suas constraints. Além disso, estão incluídos script DML para inserção de dados e script de consultas SQL nos dados das tabelas. 
+---
+
+## Modelagem do Banco de Dados
+
+1. **Modelo Conceitual**  
+   - Identifica as entidades e seus atributos;  
+   - Desenvolvido usando o software BrModelo;
+
+2. **Diagrama Entidade-Relacionamento (DER)**  
+   - Identifica a cardinalidade e opcionalidade dos relacionamentos  
+   - Desenvolvido com Oracle Data Modeler
+
+3. **Modelo Físico**  
+   - Representado por scripts **DDL (Data Definition Language)**, definindo tabelas e constraints  
+   - Inclui scripts **DML** para inserção de dados  
+   - Contém scripts de consultas SQL para manipulação e visualização de dados  
+
