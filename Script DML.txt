@@ -1,0 +1,40 @@
+INSERT INTO filme VALUES (1, 'Frankenstein', 150, 'Guilhermo Del Toro', 16, 'O cientista Victor Frankenstein deseja criar vida a partir de restos mortais', 'Terror', 'Inglês');
+INSERT INTO filme VALUES (2, 'Akira', 124, 'Katsuhiro Otomo', 16, 'Em uma Tóquio distópica, um garoto de poderes psiquicos é sequestrado por militares japoneses', 'Animação', 'Japonês');
+INSERT INTO filme VALUES (3, 'Carrie', 98, 'Brian de Palma', 18, 'Uma adolescente tímida e solitária, intimidada por colegas e oprimida por sua mãe, descobre seus poderes supernaturais', 'Terror', 'Inglês');
+INSERT INTO filme VALUES (4, 'Alice no País das Maravilhas', 75, 'Clyde Geronimi', 0, 'Após perseguir um coelho, Alice cai no País das Maravilhas, um mundo que desafia lógica e razão', 'Animação', 'Inglês');
+INSERT INTO filme VALUES (5, 'Auto da Compadecida', 104, 'Guel Arraes', 12, 'A dupla João Grilo e Chicó usa da esperteza para sobreviver no sertão nordestino', 'Comédia', 'Português');
+
+INSERT INTO sala VALUES (1, 'Sala A');
+INSERT INTO sala VALUES (2, 'Sala B');
+
+INSERT INTO poltrona VALUES (111, 1, 1, 0, 1);
+INSERT INTO poltrona VALUES (112, 1, 2, 0, 1);
+INSERT INTO poltrona VALUES (211, 1, 1, 1, 2);
+INSERT INTO poltrona VALUES (212, 1, 2, 0, 2);
+INSERT INTO poltrona VALUES (213, 1, 3, 0, 2);
+
+INSERT INTO cliente VALUES (11111111111, 'Maria Aparecida dos Santos', 'maria@gmail', TO_DATE('12-Dec-2000', 'DD-Mon-YYYY'));
+INSERT INTO cliente VALUES (22222222222, 'Anastácia Silva Pereira', 'anastacia@gmail', TO_DATE('01-Nov-1994', 'DD-Mon-YYYY'));
+INSERT INTO cliente VALUES (33333333333, 'Olívia Beatriz Queiroz', 'olivia@gmail', TO_DATE('26-Jan-2003', 'DD-Mon-YYYY'));
+
+INSERT INTO tipo_ingresso VALUES (1, 'Inteira', 0.00, 'Sem desconto aplicado.');
+INSERT INTO tipo_ingresso VALUES (2, 'Meia', 50.00, 'Desconto de 50%: estudantes, idosos e pessoas com deficiência.');
+INSERT INTO tipo_ingresso VALUES (3, 'Bebê', 100.00, 'Crianças menores de 3 anos não pagam');
+INSERT INTO tipo_ingresso VALUES (4, 'Promocional', 70.00, 'A cada 10 ingressos comprados, o cliente tem direito a um bilhete promocional');
+
+INSERT INTO sessao VALUES(1, TO_DATE('07-Oct-2024, 8:10', 'DD-Mon-YYYY, HH24:MI'), 30, 'L', 0, 1, 3);
+INSERT INTO sessao VALUES(2, TO_DATE('07-Oct-2024, 20:30', 'DD-Mon-YYYY, HH24:MI'), 40, 'D', 1, 1, 3);
+INSERT INTO sessao VALUES(3, TO_DATE('07-Oct-2024, 8:10', 'DD-Mon-YYYY, HH24:MI:SS'), 30, 'D', 0, 2, 3);
+INSERT INTO sessao VALUES(4, TO_DATE('18-May-2023, 21:10', 'DD-Mon-YYYY, HH24:MI:SS'), 20, 'L', 0, 2, 2);
+
+INSERT INTO compra VALUES(1, 200, TO_DATE('02-Oct-2024, 15:30','DD-Mon-YYYY, HH24:MI:SS'), 'Em processamento', 11111111111);
+INSERT INTO compra VALUES(2, 50, TO_DATE('09-Nov-2024, 11:50','DD-Mon-YYYY, HH24:MI:SS'), 'Pagamento realizado', 11111111111);
+
+INSERT INTO pagamento VALUES(1, 25, 'PIX', TO_DATE('20-Oct-2024', 'DD-Mon-YYYY'), 2);
+INSERT INTO pagamento VALUES(2, 25, 'Cartão de Débito', TO_DATE('20-Oct-2024', 'DD-Mon-YYYY'), 2);
+
+INSERT INTO ingresso VALUES(1, 1, 1, 111, 1);
+INSERT INTO ingresso VALUES(2, 2, 1, 112, 1);
+INSERT INTO ingresso VALUES(3, 2, 2, 111, 2);
+INSERT INTO ingresso VALUES(4, 1, 2, 112, 2);
+INSERT INTO ingresso VALUES(5, 1, 3, 213, 2);

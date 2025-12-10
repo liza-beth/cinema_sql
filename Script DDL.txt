@@ -1,0 +1,96 @@
+CREATE TABLE filme (
+id_filme INTEGER,
+nm_filme VARCHAR(50) NOT NULL,
+mi_duracao_filme INTEGER NOT NULL,
+nm_diretor_filme VARCHAR(50) NOT NULL,
+qt_faixa_etaria_filme INTEGER NOT NULL,
+ds_sinopse_filme VARCHAR(150) NOT NULL,
+nm_genero_filme VARCHAR(50) NOT NULL,
+nm_idioma_filme VARCHAR(50) NOT NULL,
+CONSTRAINT filme_pk PRIMARY KEY (id_filme),
+CONSTRAINT faixa_etaria_ck CHECK (qt_faixa_etaria_filme IN (0,10,12,14,16,18)),
+CONSTRAINT duracao_ck CHECK (mi_duracao_filme > 0)
+);
+
+CREATE TABLE sala (
+id_sala INTEGER,
+nm_sala VARCHAR(30) NOT NULL,
+CONSTRAINT sala_pk PRIMARY KEY (id_sala)
+);
+
+CREATE TABLE poltrona (
+id_poltrona INTEGER,
+cd_fileira_poltrona INTEGER NOT NULL,
+cd_coluna_poltrona INTEGER NOT NULL,
+ic_cadeira_rodas_poltrona INTEGER NOT NULL,
+id_sala INTEGER NOT NULL,
+CONSTRAINT poltrona_pk PRIMARY KEY (id_poltrona),
+CONSTRAINT poltrona_uk UNIQUE (id_sala, cd_fileira_poltrona, cd_coluna_poltrona),
+CONSTRAINT ic_cadeira_rodas_ck CHECK (ic_cadeira_rodas_poltrona IN(0,1)),
+CONSTRAINT sala_poltrona_fk FOREIGN KEY (id_sala) REFERENCES sala(id_sala)
+);
+
+CREATE TABLE cliente (
+cd_cpf_cliente INTEGER,
+nm_cliente VARCHAR(50) NOT NULL,
+nm_email_cliente VARCHAR(50) UNIQUE,
+dt_nascimento_cliente DATE NOT NULL,
+CONSTRAINT cliente_pk PRIMARY KEY (cd_cpf_cliente)
+);
+
+CREATE TABLE sessao (
+id_sessao INTEGER,
+dt_hr_sessao DATE NOT NULL,
+vl_base_sessao NUMBER(5,2) NOT NULL,
+ic_dub_leg_sessao VARCHAR(1) NOT NULL,
+ic_3d_sessao INTEGER NOT NULL,
+id_sala INTEGER NOT NULL,
+id_filme INTEGER NOT NULL,
+CONSTRAINT sessao_pk PRIMARY KEY (id_sessao),
+CONSTRAINT data_horario_sala_uk UNIQUE (id_sala, dt_hr_sessao),
+CONSTRAINT dub_leg_ck CHECK (ic_dub_leg_sessao IN('L','D')),
+CONSTRAINT sessao_3d_ck CHECK (ic_3d_sessao IN(0,1)),
+CONSTRAINT sala_sessao_fk FOREIGN KEY (id_sala) REFERENCES sala(id_sala),
+CONSTRAINT filme_sessao_fk FOREIGN KEY (id_filme) REFERENCES filme(id_filme)
+);
+
+CREATE TABLE tipo_ingresso (
+id_tipo_ingresso INTEGER,
+nm_tipo_ingresso VARCHAR(50) NOT NULL,
+pc_desconto_tipo_ingresso NUMBER(5,2) NOT NULL,
+ds_tipo_ingresso VARCHAR(150) NOT NULL,
+CONSTRAINT tipo_ingresso_pk PRIMARY KEY (id_tipo_ingresso)
+);
+
+CREATE TABLE compra (
+id_compra INTEGER,
+vl_total_compra NUMBER(6,2) NOT NULL,
+dt_compra DATE NOT NULL,
+ic_status_compra VARCHAR(30) NOT NULL,
+cd_cpf_cliente INTEGER NOT NULL,
+CONSTRAINT compra_pk PRIMARY KEY (id_compra),
+CONSTRAINT cliente_compra_fk FOREIGN KEY (cd_cpf_cliente) REFERENCES cliente(cd_cpf_cliente)
+);
+
+CREATE TABLE pagamento (
+id_pagamento INTEGER,
+vl_parcial_pagamento NUMBER(6,2) NOT NULL,
+nm_forma_pagamento VARCHAR(50) NOT NULL,
+dt_pagamento DATE NOT NULL,
+id_compra INTEGER NOT NULL,
+CONSTRAINT pagamento_pk PRIMARY KEY (id_pagamento),
+CONSTRAINT compra_pagamento_fk FOREIGN KEY (id_compra) REFERENCES compra(id_compra)
+);
+
+CREATE TABLE ingresso (
+id_ingresso INTEGER,
+id_tipo_ingresso INTEGER NOT NULL,
+id_sessao INTEGER NOT NULL,
+id_poltrona INTEGER NOT NULL,
+id_compra INTEGER NOT NULL,
+CONSTRAINT ingresso_pk PRIMARY KEY (id_ingresso),
+CONSTRAINT tipo_ingresso_ingresso_fk FOREIGN KEY (id_tipo_ingresso) REFERENCES tipo_ingresso(id_tipo_ingresso),
+CONSTRAINT sessao_ingresso_fk FOREIGN KEY (id_sessao) REFERENCES sessao(id_sessao),
+CONSTRAINT poltrona_ingresso_fk FOREIGN KEY (id_poltrona) REFERENCES poltrona(id_poltrona),
+CONSTRAINT compra_ingresso_fk FOREIGN KEY (id_compra) REFERENCES compra(id_compra)
+);

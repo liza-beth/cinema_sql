@@ -1,0 +1,30 @@
+-- Selecionar quais poltronas estão disponíveis para a sessão 3:
+SELECT id_poltrona AS "Poltrona" FROM poltrona p JOIN sessao s ON p.id_sala = s.id_sala WHERE s.id_sessao = 3 AND p.id_poltrona NOT IN(SELECT id_poltrona FROM ingresso WHERE id_sessao = 3)
+
+-- Qual a quantidade de filmes por gênero?
+SELECT COUNT(nm_genero_filme) AS "Quantidade", nm_genero_filme AS "Gênero" FROM filme GROUP BY nm_genero_filme
+
+-- Selecionar todos os filmes que nunca tiveram sessões:
+SELECT nm_filme AS "filme" FROM filme WHERE id_filme NOT IN ( SELECT id_filme FROM sessao )
+
+-- Selecionar os nomes dos clientes e os detalhes de suas compras
+SELECT c.nm_cliente AS "Cliente", co.id_compra AS "Id da compra", co.vl_total_compra AS "Valor total", co.dt_compra AS "Data da compra", co.ic_status_compra AS "Status" FROM cliente c JOIN compra co ON c.cd_cpf_cliente = co.cd_cpf_cliente
+
+-- Calcular a hora do término de todas as sessões
+SELECT f.nm_filme, TO_CHAR(s.dt_hr_sessao, 'DD-Mon-YYYY') AS "Data da Sessão", TO_CHAR(s.dt_hr_sessao, 'HH24:MI') AS "Horário de Início", TO_CHAR((s.dt_hr_sessao + (f.mi_duracao_filme/60)/24), 'HH24:MI') AS "Horário de Término" FROM sessao s JOIN filme f ON s.id_filme = f.id_filme
+
+-- Selecionar a quantidade de ingressos vendidos por tipo:
+SELECT COUNT(i.id_ingresso) AS "Quantidade de Ingressos", t.nm_tipo_ingresso AS "Tipo de Ingresso" 
+	FROM ingresso i 
+	JOIN tipo_ingresso t ON i.id_tipo_ingresso = t.id_tipo_ingresso 
+	GROUP BY t.nm_tipo_ingresso
+
+-- Exibir os detalhes de cada ingresso:
+SELECT i.id_ingresso, f.nm_filme, s.dt_hr_sessao, t.nm_tipo_ingresso, p.id_poltrona, cl.nm_cliente 
+	FROM ingresso i 
+	JOIN sessao s ON i.id_sessao = s.id_sessao 
+	JOIN filme f ON s.id_filme = f.id_filme 
+	JOIN tipo_ingresso t ON i.id_tipo_ingresso = t.id_tipo_ingresso 
+	JOIN poltrona p ON i.id_poltrona = p.id_poltrona
+	JOIN compra co ON i.id_compra = co.id_compra 
+	JOIN cliente cl ON co.cd_cpf_cliente = cl.cd_cpf_cliente
